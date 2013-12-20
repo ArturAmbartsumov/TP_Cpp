@@ -75,7 +75,10 @@ void read_time(struct myTime *t) {
         return;
     }
     printf("Введите время прибытия/отпревления (в формате 24 60 60): ");
-    scanf("%d%d%d", &t->hour, &t->min, &t->sec);
+    if (scanf("%d%d%d", &t->hour, &t->min, &t->sec) != 3) {
+        printf("Ошибка считывания данных");
+        return;
+    }
     char str[5];
     gets(str);
 }
@@ -93,7 +96,6 @@ void read_station(struct station *s) {
     }
 
     printf("Введите название станции (не более 20 символов): ");
-    //scanf("%s", &s->station_name);
     char str[300] = "";
     gets(str);
     s->station_name[0] = '\0';
@@ -130,7 +132,10 @@ void read_train(struct train *tr) {
     //ввод числа остановок с проверкой корректности ввода
     while (1) {
         printf("Введите число остановок: ");
-        scanf("%d", &tr->stations_number);
+        if (scanf("%d", &tr->stations_number) != 1) {
+            printf("\n\nОшибка считывания данных!!!\n\n");
+            return;
+        }
         gets(str1);
         if (tr->stations_number >= 1) break;
         else printf("!!!Некорректный ввод значения!!!\n");
